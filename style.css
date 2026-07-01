@@ -23,6 +23,9 @@ body {
     /* Sombra dura para el efecto retro */
     box-shadow: 8px 8px 0px #b0445d;
     width: 380px;
+    max-width: 90vw; /* Nuevo: se adapta al ancho de la pantalla */
+    max-height: 90vh; /* Nuevo: evita que se corte verticalmente */
+    overflow-y: auto;
 }
 
 .window-header {
