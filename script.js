@@ -5,34 +5,33 @@ const buttonsContainer = document.getElementById('letter-buttons');
 const finalText = document.getElementById('final-text');
 const catImg = document.getElementById('letter-cat');
 
-// Lógica para que el botón "No" escape del mouse
-noBtn.addEventListener('mouseover', () => {
-    // Obtenemos los límites de la ventana para que no se salga de la pantalla
+// Función que calcula la nueva posición y mueve el botón
+const moveNoButton = (e) => {
+    // Evita el comportamiento por defecto en móviles (como hacer zoom al tocar rápido)
+    if (e.type === 'touchstart') {
+        e.preventDefault(); 
+    }
+
     const maxX = window.innerWidth - noBtn.offsetWidth - 20;
     const maxY = window.innerHeight - noBtn.offsetHeight - 20;
 
-    // Generamos coordenadas aleatorias
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
-    // Cambiamos el posicionamiento a 'fixed' para moverlo por toda la pantalla
     noBtn.style.position = 'fixed';
     noBtn.style.left = `${randomX}px`;
     noBtn.style.top = `${randomY}px`;
-});
+};
 
-// Lógica para cuando finalmente logra (o decide) presionar "Yes"
+// Escuchamos tanto el ratón (PC) como el toque (Móvil)
+noBtn.addEventListener('mouseover', moveNoButton);
+noBtn.addEventListener('touchstart', moveNoButton);
+
+// Lógica para cuando se da click en "YES" (se mantiene igual)
 yesBtn.addEventListener('click', () => {
-    // 1. Cambiar el título
     title.innerText = 'Yippeeee!';
-    
-    // 2. Ocultar los botones
     buttonsContainer.style.display = 'none';
-    noBtn.style.display = 'none'; // Aseguramos que el "No" desaparezca si estaba flotando
-    
-    // 3. Mostrar el texto final
+    noBtn.style.display = 'none'; 
     finalText.style.display = 'block';
-    
-    // 4. (Opcional) Cambiar la imagen del gato a uno más feliz
     catImg.src = "https://media.tenor.com/rbHUnVkjloQAAAAj/cat-cute.gif"; 
 });
